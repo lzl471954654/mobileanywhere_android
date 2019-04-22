@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +27,7 @@ import java.time.Duration;
 
 import io.liuzhilin.mobileanywhere.MapActivity;
 import io.liuzhilin.mobileanywhere.R;
+import io.liuzhilin.mobileanywhere.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -151,5 +154,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacksAndMessages(null);
+    }
+
+    public static void startActivity(Context context){
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
     }
 }

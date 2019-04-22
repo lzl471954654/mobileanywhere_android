@@ -32,10 +32,10 @@ public class CallBackParser implements Callback {
             JSONObject object = new JSONObject(data);
             int code = object.getInt("code");
             String raw = object.getString("data");
-            if (code >= 0){
-                requestCallback.success(raw);
+            if (code > 0){
+                requestCallback.success(data);
             }else {
-                Exception exception = new Exception("Unknown Exception");
+                Exception exception = new Exception(data);
                 switch (code) {
                     case -5:{
                         exception = new AccessDenyException(object.getString("msg"));
@@ -44,7 +44,7 @@ public class CallBackParser implements Callback {
 
                         break;
                     }default:{
-                        exception = new Exception("Unknown Exception");
+                        exception = new Exception(data);
                         break;
                     }
                 }

@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.os.Handler;
+import android.util.Log;
 import android.util.Patterns;
 
 import io.liuzhilin.mobileanywhere.callback.RequestCallback;
@@ -13,6 +14,7 @@ import io.liuzhilin.mobileanywhere.data.model.LoggedInUser;
 import io.liuzhilin.mobileanywhere.R;
 import io.liuzhilin.mobileanywhere.requests.LoginRequest;
 import io.liuzhilin.mobileanywhere.util.CallBackParser;
+import io.liuzhilin.mobileanywhere.util.DIgestUtils;
 
 public class LoginViewModel extends ViewModel {
 
@@ -45,7 +47,9 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void loginToServer(String username, String password , final Handler handler){
-        LoginRequest.Companion.login(username,password,new CallBackParser(new RequestCallback() {
+        password = DIgestUtils.sha1(password+"mobile");
+        Log.e("loginToServer:",password);
+        LoginRequest.Companion.login(username, password,new CallBackParser(new RequestCallback() {
             @Override
             public void success(String json) {
                 handler.obtainMessage(LoginActivity.LOGIN_SUCEESS,json).sendToTarget();
