@@ -29,5 +29,6 @@ public class MainActivity extends AppCompatActivity {
                 RegisterActivity.startActivity(MainActivity.this);
             }
         });
+        //MapActivity.Companion.startActivity(this);
     }
 }
