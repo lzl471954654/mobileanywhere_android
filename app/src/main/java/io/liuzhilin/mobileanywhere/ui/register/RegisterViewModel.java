@@ -1,6 +1,7 @@
 package io.liuzhilin.mobileanywhere.ui.register;
 
 import android.os.Handler;
+import android.util.Log;
 import android.util.Patterns;
 
 import java.util.Map;
@@ -10,6 +11,7 @@ import io.liuzhilin.mobileanywhere.callback.RequestCallback;
 import io.liuzhilin.mobileanywhere.requests.LoginRequest;
 import io.liuzhilin.mobileanywhere.ui.login.LoginActivity;
 import io.liuzhilin.mobileanywhere.util.CallBackParser;
+import io.liuzhilin.mobileanywhere.util.DIgestUtils;
 
 public class RegisterViewModel {
 
@@ -24,6 +26,22 @@ public class RegisterViewModel {
             @Override
             public void failed(Exception e) {
                 handler.obtainMessage(RegisterActivity.REG_FAILED,e).sendToTarget();
+            }
+        }));
+    }
+
+    public void loginToServer(String username, String password , final Handler handler){
+        password = DIgestUtils.sha1(password+"mobile");
+        Log.e("loginToServer:",password);
+        LoginRequest.Companion.login(username, password,new CallBackParser(new RequestCallback() {
+            @Override
+            public void success(String json) {
+                handler.obtainMessage(LoginActivity.LOGIN_SUCEESS,json).sendToTarget();
+            }
+
+            @Override
+            public void failed(Exception e) {
+                handler.obtainMessage(LoginActivity.LOGIN_FAILED,e).sendToTarget();
             }
         }));
     }

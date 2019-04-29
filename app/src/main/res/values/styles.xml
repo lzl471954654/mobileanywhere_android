@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="LoginEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/editTextBaseLineColor</item>
+        <item name="colorControlActivated">@color/editTextBaseLineColor</item>
+    </style>
+
 </resources>

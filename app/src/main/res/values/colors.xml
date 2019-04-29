@@ -5,4 +5,7 @@
     <color name="colorAccent">#f34573</color>
 
     <color name="textPrimary">#2E3234</color>
+    <color name="secondText">#b0b0b0</color>
+    <color name="thirdText">#D1D1D1</color>
+    <color name="editTextBaseLineColor">#E8E8E8</color>
 </resources>
