@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         initView();
         initFragment();
         initListener();
+        PYQActivity.startActivity(this);
     }
 
     private void initListener(){

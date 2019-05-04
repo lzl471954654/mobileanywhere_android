@@ -8,4 +8,16 @@
     <color name="secondText">#b0b0b0</color>
     <color name="thirdText">#D1D1D1</color>
     <color name="editTextBaseLineColor">#E8E8E8</color>
+    <color name="comments_background">#ffffff</color>
+    <color name="comments_image_loading_color">#F2F2F2</color>
+    <color name="comments_head_loading_color">#E5E5E5</color>
+    <color name="comments_people_name">#262626</color>
+    <color name="comments_total_reBack_tips">#4A90E2</color>
+    <color name="comments_reBack_tips">#8FBAED</color>
+    <color name="comments_great_tips">#6C7FAE</color>
+    <color name="comments_main_text">#505050</color>
+    <color name="comments_time_text">#929292</color>
+    <color name="comments_reBack_people_name">#929292</color>
+    <color name="comments_main_time_text">#BDBDBD</color>
+    <color name="comments_divider">#BDBDBD</color>
 </resources>

@@ -39,6 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapActivity" />
+        <activity android:name=".PYQActivity" />
     </application>
 
 </manifest>
