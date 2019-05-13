@@ -17,13 +17,19 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import io.liuzhilin.mobileanywhere.MapActivity;
 import io.liuzhilin.mobileanywhere.R;
+import io.liuzhilin.mobileanywhere.bean.User;
+import io.liuzhilin.mobileanywhere.manager.UserCacheManager;
 import io.liuzhilin.mobileanywhere.ui.register.RegisterViewModel;
 import io.liuzhilin.mobileanywhere.util.DIgestUtils;
+import io.liuzhilin.mobileanywhere.util.GsonUtils;
 
 public class RegisterFragment extends Fragment {
 
@@ -59,9 +65,17 @@ public class RegisterFragment extends Fragment {
     };
 
     private void regSuccess(String data){
-        progressBar.setVisibility(View.INVISIBLE);
-        Toast.makeText(getContext(),data,Toast.LENGTH_LONG).show();
-        MapActivity.Companion.startActivity(getContext());
+        try{
+            JSONObject object = new JSONObject(data);
+            JSONObject u = object.getJSONObject("data");
+            User user = GsonUtils.gson.fromJson(u.toString(),User.class);
+            UserCacheManager.setCurrentUser(user);
+            progressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(getContext(),data,Toast.LENGTH_LONG).show();
+            MapActivity.Companion.startActivity(getContext());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 
     private void regFailed(Exception e){
@@ -91,7 +105,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                viewModel.loginToServer(collectRegisterInfo(),handler);
+                viewModel.registerToServer(collectRegisterInfo(),handler);
             }
         });
     }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:id="@+id/share_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_text"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/textPrimary"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/comments_divider"
+        />
+
+    <TextView
+        android:id="@+id/share_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_image"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/textPrimary"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/comments_divider"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_video"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/textPrimary"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/comments_divider"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_vocice"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textColor="@color/textPrimary"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        />
+
+
+
+</LinearLayout>

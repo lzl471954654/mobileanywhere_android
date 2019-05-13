@@ -18,5 +18,12 @@
     <string name="comments_base_people_name">王二丫</string>
     <string name="comments_main_time">2019.03.01 10:43</string>
     <string name="great_tips_number">36</string>
-    <string name="total_reBack_base">共4条回复</string>
+    <string name="total_reBack_base">查看回复</string>
+    <string name="share_text">分享文字</string>
+    <string name="share_image">分享图片</string>
+    <string name="share_video">分享视频</string>
+    <string name="share_vocice">分享语音</string>
+    <string name="submit_button">提交</string>
+    <string name="pick_image_from_gallery">从相册选择</string>
+    <string name="shot_image">拍照</string>
 </resources>

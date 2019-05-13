@@ -20,4 +20,7 @@
     <color name="comments_reBack_people_name">#929292</color>
     <color name="comments_main_time_text">#BDBDBD</color>
     <color name="comments_divider">#BDBDBD</color>
+
+
+    <color name="normalBackgroundColor">#ffffff</color>
 </resources>

@@ -80,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                viewModel.loginToServer(collectRegisterInfo(),handler);
+                viewModel.registerToServer(collectRegisterInfo(),handler);
             }
         });
     }

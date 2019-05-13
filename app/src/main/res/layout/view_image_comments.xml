@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    >
+
+    <android.support.constraint.Guideline
+        android:id="@+id/left_guidLine"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15"/>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/right_guidLine"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/head_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_launcher_round"
+        />
+
+    <TextView
+        android:id="@+id/people_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/comments_base_people_name"
+        android:textColor="@color/comments_people_name"
+        app:layout_constraintStart_toEndOf="@id/head_image"
+        app:layout_constraintTop_toTopOf="@id/head_image"
+        app:layout_constraintBottom_toBottomOf="@id/head_image"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        />
+
+
+    <ImageView
+        android:id="@+id/comments_image_data"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/left_guidLine"
+        app:layout_constraintEnd_toEndOf="@id/right_guidLine"
+        app:layout_constraintTop_toBottomOf="@id/head_image"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/image_corner"
+        />
+
+    <TextView
+        android:id="@+id/total_reBack_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/left_guidLine"
+        app:layout_constraintTop_toBottomOf="@id/comments_image_data"
+        android:layout_marginTop="16dp"
+        android:text="@string/total_reBack_base"
+        android:textColor="@color/comments_total_reBack_tips"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/main_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/comments_main_time"
+        app:layout_constraintTop_toBottomOf="@id/total_reBack_tips"
+        app:layout_constraintStart_toEndOf="@id/left_guidLine"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/comments_main_time_text"
+        android:textSize="12sp"
+        />
+
+    <ImageView
+        android:id="@+id/great_tip"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintEnd_toEndOf="@id/right_guidLine"
+        app:layout_constraintBottom_toBottomOf="@id/main_time"
+        android:src="@mipmap/liked"
+        />
+
+    <TextView
+        android:id="@+id/great_tips_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/great_tip"
+        app:layout_constraintBottom_toBottomOf="@id/great_tip"
+        android:layout_marginEnd="8dp"
+
+        android:text="@string/great_tips_number"
+        android:textColor="@color/comments_great_tips"
+        android:textSize="12sp"
+        />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintStart_toStartOf="@id/left_guidLine"
+        app:layout_constraintEnd_toEndOf="@id/right_guidLine"
+        android:background="@color/comments_divider"
+        app:layout_constraintTop_toBottomOf="@id/main_time"
+        android:layout_marginTop="8dp"
+        />
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>

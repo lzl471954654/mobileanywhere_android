@@ -44,11 +44,26 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.squareup.okhttp3:okhttp:3.14.1'
-    implementation 'com.amap.api:map2d:latest.integration'
-    implementation 'com.amap.api:navi-3dmap:latest.integration'
-    implementation 'com.amap.api:search:latest.integration'
-    implementation 'com.amap.api:location:latest.integration'
+    //implementation 'com.amap.api:map2d:latest.integration'
+    //implementation 'com.amap.api:navi-3dmap:latest.integration'
+    //implementation 'com.amap.api:search:latest.integration'
+    //implementation 'com.amap.api:location:latest.integration'
     implementation "org.jetbrains.anko:anko:0.10.8"
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    // Google Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    //Image Picker
+    implementation 'com.linchaolong.android:imagepicker:1.5'
+
+    //Luban Image compressor
+    implementation 'top.zibin:Luban:1.1.8'
+
+
 }

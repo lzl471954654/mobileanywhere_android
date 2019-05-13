@@ -21,9 +21,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.liuzhilin.mobileanywhere.MapActivity;
 import io.liuzhilin.mobileanywhere.R;
+import io.liuzhilin.mobileanywhere.bean.User;
+import io.liuzhilin.mobileanywhere.manager.UserCacheManager;
 import io.liuzhilin.mobileanywhere.ui.register.RegisterViewModel;
+import io.liuzhilin.mobileanywhere.util.GsonUtils;
 
 public class LoginFragment extends Fragment {
     public static final int LOGIN_SUCEESS = 1;
@@ -113,9 +119,17 @@ public class LoginFragment extends Fragment {
     }
 
     private void loginSuccess(String data){
-        loadingProgressBar.setVisibility(View.INVISIBLE);
-        Toast.makeText(this.getContext(),data,Toast.LENGTH_LONG).show();
-        MapActivity.Companion.startActivity(getContext());
+        try {
+            JSONObject object = new JSONObject(data);
+            JSONObject u = object.getJSONObject("data");
+            User user = GsonUtils.gson.fromJson(u.toString(),User.class);
+            UserCacheManager.setCurrentUser(user);
+            loadingProgressBar.setVisibility(View.INVISIBLE);
+            Toast.makeText(this.getContext(),data,Toast.LENGTH_LONG).show();
+            MapActivity.Companion.startActivity(getContext());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loginFailed(Exception e){

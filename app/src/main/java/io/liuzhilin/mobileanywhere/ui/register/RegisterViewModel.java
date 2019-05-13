@@ -4,11 +4,13 @@ import android.os.Handler;
 import android.util.Log;
 import android.util.Patterns;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import io.liuzhilin.mobileanywhere.RegisterActivity;
 import io.liuzhilin.mobileanywhere.callback.RequestCallback;
 import io.liuzhilin.mobileanywhere.requests.LoginRequest;
+import io.liuzhilin.mobileanywhere.requests.RequestCenter;
 import io.liuzhilin.mobileanywhere.ui.login.LoginActivity;
 import io.liuzhilin.mobileanywhere.util.CallBackParser;
 import io.liuzhilin.mobileanywhere.util.DIgestUtils;
@@ -16,8 +18,8 @@ import io.liuzhilin.mobileanywhere.util.DIgestUtils;
 public class RegisterViewModel {
 
 
-    public void loginToServer(Map<String,String> params, final Handler handler){
-        LoginRequest.Companion.register(params,new CallBackParser(new RequestCallback() {
+    public void registerToServer(Map<String,String> params, final Handler handler){
+        RequestCenter.Companion.requestGet(RequestCenter.REGISTER,params,new CallBackParser(new RequestCallback() {
             @Override
             public void success(String json) {
                 handler.obtainMessage(RegisterActivity.REG_SUCEESS,json).sendToTarget();
@@ -33,7 +35,10 @@ public class RegisterViewModel {
     public void loginToServer(String username, String password , final Handler handler){
         password = DIgestUtils.sha1(password+"mobile");
         Log.e("loginToServer:",password);
-        LoginRequest.Companion.login(username, password,new CallBackParser(new RequestCallback() {
+        HashMap<String,String> map = new HashMap<>();
+        map.put("userAccount",username);
+        map.put("userPass",password);
+        RequestCenter.Companion.requestGet(RequestCenter.LOGIN,map,new CallBackParser(new RequestCallback() {
             @Override
             public void success(String json) {
                 handler.obtainMessage(LoginActivity.LOGIN_SUCEESS,json).sendToTarget();

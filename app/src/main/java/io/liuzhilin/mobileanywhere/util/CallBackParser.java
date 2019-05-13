@@ -1,5 +1,7 @@
 package io.liuzhilin.mobileanywhere.util;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +30,13 @@ public class CallBackParser implements Callback {
     @Override
     public void onResponse(Call call, Response response) throws IOException {
         try{
+            if (response.code() != 200){
+                int code = response.code();
+                requestCallback.failed(new Exception("Status Code :"+code));
+                return;
+            }
             String data = response.body().string();
+            Log.e("CallBackParser : ",data);
             JSONObject object = new JSONObject(data);
             int code = object.getInt("code");
             String raw = object.getString("data");
@@ -38,7 +46,7 @@ public class CallBackParser implements Callback {
                 Exception exception = new Exception(data);
                 switch (code) {
                     case -5:{
-                        exception = new AccessDenyException(object.getString("msg"));
+                        exception = new AccessDenyException(object.getString("message"));
                         break;
                     }case -1:{
 
