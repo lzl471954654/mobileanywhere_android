@@ -19,6 +19,8 @@ import io.liuzhilin.mobileanywhere.ShareImageActivity;
 import io.liuzhilin.mobileanywhere.ShareImageCommentsActivity;
 import io.liuzhilin.mobileanywhere.ShareTExtActivity;
 import io.liuzhilin.mobileanywhere.ShareTextCommentsActivity;
+import io.liuzhilin.mobileanywhere.ShareVideoActivity;
+import io.liuzhilin.mobileanywhere.ShareVoiceActivity;
 import io.liuzhilin.mobileanywhere.callback.GetBlogCallBack;
 import io.liuzhilin.mobileanywhere.callback.GetPointCallBack;
 
@@ -49,8 +51,12 @@ public class ShareMenuFragment extends BottomSheetDialogFragment implements View
         super.onViewCreated(view, savedInstanceState);
         text = rootView.findViewById(R.id.share_text);
         image = rootView.findViewById(R.id.share_image);
+        voice = rootView.findViewById(R.id.share_voice);
+        video = rootView.findViewById(R.id.share_video);
         text.setOnClickListener(this);
         image.setOnClickListener(this);
+        voice.setOnClickListener(this);
+        video.setOnClickListener(this);
         imagePicker.setCropImage(false);
     }
 
@@ -94,6 +100,14 @@ public class ShareMenuFragment extends BottomSheetDialogFragment implements View
                     intent.putExtra("blogId",getBlogCallBack.getBlogData().getBlogId());
                     startActivity(intent);
                 }
+            }
+            case R.id.share_voice:{
+                Intent intent = new Intent(getContext(), ShareVoiceActivity.class);
+                startActivity(intent);
+            }
+            case R.id.share_video:{
+                Intent intent = new Intent(getContext(), ShareVideoActivity.class);
+                startActivity(intent);
             }
 
         }
