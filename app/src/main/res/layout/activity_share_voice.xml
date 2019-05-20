@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".ShareVoiceActivity">
 
     <Button
@@ -11,12 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="开始录音"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#000000"
+        android:background="@drawable/button_corner"
+        android:textColor="#ffffff"
+        android:layout_marginTop="32dp"
         />
 
     <Button
@@ -24,12 +22,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="播放录音"
+        android:background="@drawable/button_corner"
+        android:textColor="#ffffff"
+        android:layout_marginTop="16dp"
         />
 
-    <TextView
+    <Button
         android:id="@+id/tv_show"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="开始上传"
+        android:background="@drawable/button_corner"
+        android:textColor="#ffffff"
+        />
 
 
 

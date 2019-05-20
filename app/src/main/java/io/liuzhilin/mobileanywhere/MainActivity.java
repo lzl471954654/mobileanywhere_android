@@ -1,6 +1,9 @@
 package io.liuzhilin.mobileanywhere;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +36,21 @@ public class MainActivity extends AppCompatActivity {
         initListener();
         //PYQActivity.startActivity(this);
         //MapActivity.Companion.startActivity(this);
+        /*Intent intent=new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY,1);
+        //好使
+        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT,10485760L);
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,10);
+        startActivityForResult(intent,5);*/
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 5){
+            Uri uri = data.getData();
+            System.out.println(uri);
+        }
     }
 
     private void initListener(){

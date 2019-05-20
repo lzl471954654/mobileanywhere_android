@@ -1,8 +1,11 @@
 package io.liuzhilin.mobileanywhere;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
+import android.hardware.Camera;
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
@@ -54,21 +57,31 @@ public class ShareVideoActivity extends AppCompatActivity implements SurfaceHold
         @Override
         public void onClick(View v) {
             if (v == start) {
+                Camera camera = Camera.open();
+                for (Camera.Size size : camera.getParameters().getSupportedVideoSizes()) {
+                    System.out.println(size);
+                }
+                //camera.lock();
+                //camera.unlock();
                 mediarecorder = new MediaRecorder();// 创建mediarecorder对象
                 // 设置录制视频源为Camera(相机)
+
+                mediarecorder.setCamera(camera);
                 mediarecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
+                mediarecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                 // 设置录制完成后视频的封装格式THREE_GPP为3gp.MPEG_4为mp4
                 mediarecorder
-                        .setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                        .setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
                 // 设置录制的视频编码h263 h264
+                mediarecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
                 mediarecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
                 // 设置视频录制的分辨率。必须放在设置编码和格式的后面，否则报错
-                mediarecorder.setVideoSize(176, 144);
+                mediarecorder.setVideoSize(480, 320);
                 // 设置录制的视频帧率。必须放在设置编码和格式的后面，否则报错
-                mediarecorder.setVideoFrameRate(20);
+                //mediarecorder.setVideoFrameRate(20);
                 mediarecorder.setPreviewDisplay(surfaceHolder.getSurface());
                 // 设置视频文件输出的路径
-                mediarecorder.setOutputFile("/sdcard/love.3gp");
+                mediarecorder.setOutputFile(ShareVideoActivity.this.getCacheDir().getAbsolutePath()+"/love.mp4");
                 try {
                     // 准备录制
                     mediarecorder.prepare();

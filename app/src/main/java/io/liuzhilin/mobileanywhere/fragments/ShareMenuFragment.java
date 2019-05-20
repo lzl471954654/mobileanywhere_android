@@ -23,6 +23,7 @@ import io.liuzhilin.mobileanywhere.ShareVideoActivity;
 import io.liuzhilin.mobileanywhere.ShareVoiceActivity;
 import io.liuzhilin.mobileanywhere.callback.GetBlogCallBack;
 import io.liuzhilin.mobileanywhere.callback.GetPointCallBack;
+import io.liuzhilin.mobileanywhere.requests.RequestCenter;
 
 public class ShareMenuFragment extends BottomSheetDialogFragment implements View.OnClickListener {
 
@@ -103,11 +104,20 @@ public class ShareMenuFragment extends BottomSheetDialogFragment implements View
             }
             case R.id.share_voice:{
                 Intent intent = new Intent(getContext(), ShareVoiceActivity.class);
+                if (isBlog){
+                    intent.putExtra("pointId",getPointCallBack.getPointData());
+                    intent.putExtra("url", RequestCenter.SEND_BLOG);
+                }else {
+                    intent.putExtra("blogId",getBlogCallBack.getBlogData().getBlogId());
+                    intent.putExtra("url",RequestCenter.ADD_COMMENT);
+                }
                 startActivity(intent);
+                break;
             }
             case R.id.share_video:{
                 Intent intent = new Intent(getContext(), ShareVideoActivity.class);
                 startActivity(intent);
+                break;
             }
 
         }

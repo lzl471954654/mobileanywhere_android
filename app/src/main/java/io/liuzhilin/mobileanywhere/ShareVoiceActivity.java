@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,14 +17,30 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import io.liuzhilin.mobileanywhere.bean.Blog;
+import io.liuzhilin.mobileanywhere.bean.BlogComment;
+import io.liuzhilin.mobileanywhere.callback.RequestCallback;
+import io.liuzhilin.mobileanywhere.manager.ThreadManager;
+import io.liuzhilin.mobileanywhere.manager.UserCacheManager;
+import io.liuzhilin.mobileanywhere.requests.RequestCenter;
+import io.liuzhilin.mobileanywhere.util.CallBackParser;
+import io.liuzhilin.mobileanywhere.util.DIgestUtils;
+import io.liuzhilin.mobileanywhere.util.FileUtils;
+import io.liuzhilin.mobileanywhere.util.GsonUtils;
 
 public class ShareVoiceActivity extends AppCompatActivity {
 
     private Button mBtnStart;
     private Button mBtnPlay;
-    private TextView mTvShow;
+    private Button mSendButton;
 
     private File mAudioFile;
     private Long mStartRecordTime;
@@ -36,6 +53,10 @@ public class ShareVoiceActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private boolean mIsPlaying=false;
 
+    private String url = null;
+    private String pointId = null;
+    private String blogId = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +64,13 @@ public class ShareVoiceActivity extends AppCompatActivity {
 
         mBtnStart = findViewById(R.id.btn_start);
         mBtnPlay = findViewById(R.id.btn_play);
-        mTvShow = findViewById(R.id.tv_show);
+        mSendButton = findViewById(R.id.tv_show);
 
         mMainHandler = new Handler(Looper.getMainLooper());
         mExecutorService = Executors.newSingleThreadExecutor();
+        url = getIntent().getStringExtra("url");
+        pointId = getIntent().getStringExtra("pointId");
+        blogId = getIntent().getStringExtra("blogId");
 
         //对按钮进行监听
         mBtnStart.setOnTouchListener(new View.OnTouchListener() {
@@ -72,6 +96,81 @@ public class ShareVoiceActivity extends AppCompatActivity {
                 playrecorder();
             }
         });
+        mSendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doUploadAudio();
+            }
+        });
+    }
+
+    private void doUploadAudio(){
+        if (mAudioFile == null || !mAudioFile.exists()){
+            Toast.makeText(this,"没有录音，无法上传。",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ThreadManager.getThreadManager().addNetworkTask(()->{
+            FileUtils.INSTANCE.sendFileToGitHub(mAudioFile, ".m4a", new RequestCallback() {
+                @Override
+                public void success(String json) {
+                    System.out.println(json);
+                    doUpload(json);
+                }
+
+                @Override
+                public void failed(Exception e) {
+                    e.printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ShareVoiceActivity.this,"上传失败",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    private void doUpload(String mediaUrl){
+
+        Map<String,String> map = new HashMap<>();
+        if (RequestCenter.SEND_BLOG.equals(url)){
+            Blog blog = new Blog();
+            blog.setBlogType((short)4);
+            blog.setBlogOwner(UserCacheManager.getCurrentUser().getUserAccount());
+            blog.setBlogCreateTime(new Date(System.currentTimeMillis()));
+            blog.setBlogMediaUrl(mediaUrl);
+            blog.setBlogPointId(pointId);
+            String json = GsonUtils.gson.toJson(blog);
+            map.put("blogData",json);
+        }else {
+            BlogComment blogComment = new BlogComment();
+            blogComment.setBlogCommentsOwner(UserCacheManager.getCurrentUser().getUserAccount());
+            blogComment.setBlogCommentsType((short)4);
+            blogComment.setBlogCommentsCreateTime(new Date(System.currentTimeMillis()));
+            blogComment.setBlogCommentsMediaUrl(url);
+            blogComment.setBlogId(blogId);
+            blogComment.setBlogCommentsToType((short)1);
+            String json = GsonUtils.gson.toJson(blogComment);
+            map.put("data",json);
+        }
+        RequestCenter.Companion.requestPost(url,map,new CallBackParser(new RequestCallback() {
+            @Override
+            public void success(String json) {
+                runOnUiThread(()->{
+                    Toast.makeText(ShareVoiceActivity.this,"发送成功",Toast.LENGTH_SHORT).show();
+                    finish();
+                });
+            }
+
+            @Override
+            public void failed(Exception e) {
+                e.printStackTrace();
+                runOnUiThread(()->{
+                    Toast.makeText(ShareVoiceActivity.this,"发送失败:"+e.getMessage(),Toast.LENGTH_SHORT).show();
+                });
+            }
+        }));
     }
 
     @Override
@@ -130,7 +229,7 @@ public class ShareVoiceActivity extends AppCompatActivity {
             mMediaRecorder = new MediaRecorder();
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 //创建保存的文件
-                String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Video/" + System.currentTimeMillis() + ".m4a";
+                String path = this.getCacheDir().getAbsolutePath() + "/" + System.currentTimeMillis() + ".m4a";
                 mAudioFile = new File(path);
                 mAudioFile.getParentFile().mkdirs();
                 mAudioFile.createNewFile();
@@ -201,12 +300,12 @@ public class ShareVoiceActivity extends AppCompatActivity {
             //因为这里要判断相应的时间,如果大于三秒就直接保存，否则删除文件
             mEndRecordTime = System.currentTimeMillis();
             final int time = (int) ((mEndRecordTime - mStartRecordTime) / 1000);
-            if (time > 3) {
+            if (time > 1) {
                 mMainHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         String des = "录音成功" + time + "秒";
-                        mTvShow.setText(des);
+                        Toast.makeText(ShareVoiceActivity.this,des,Toast.LENGTH_SHORT).show();
                     }
                 });
             } else {
@@ -216,7 +315,7 @@ public class ShareVoiceActivity extends AppCompatActivity {
                 mMainHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mTvShow.setText("录音小于3秒没有保存文件");
+                        Toast.makeText(ShareVoiceActivity.this,"录音时间太短",Toast.LENGTH_SHORT).show();
                     }
                 });
             }

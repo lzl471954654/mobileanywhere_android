@@ -6,6 +6,7 @@ import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import java.io.File
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
