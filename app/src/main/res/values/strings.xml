@@ -26,4 +26,5 @@
     <string name="submit_button">提交</string>
     <string name="pick_image_from_gallery">从相册选择</string>
     <string name="shot_image">拍照</string>
+    <string name="play_tips">点击播放媒体</string>
 </resources>

@@ -50,6 +50,20 @@
         <activity android:name=".ShareImageActivity" />
         <activity android:name=".ShareTextCommentsActivity" />
         <activity android:name=".ShareImageCommentsActivity" />
+        <activity android:name=".ShareVideoActivityNew" />
+        <activity android:name=".VideoPlayerActivity" />
+
+        <provider
+            android:authorities="${applicationId}.fileprovider"
+            android:name=".MyFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"
+                />
+        </provider>
     </application>
 
 </manifest>

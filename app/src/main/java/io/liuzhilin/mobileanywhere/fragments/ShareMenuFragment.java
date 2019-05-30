@@ -20,6 +20,7 @@ import io.liuzhilin.mobileanywhere.ShareImageCommentsActivity;
 import io.liuzhilin.mobileanywhere.ShareTExtActivity;
 import io.liuzhilin.mobileanywhere.ShareTextCommentsActivity;
 import io.liuzhilin.mobileanywhere.ShareVideoActivity;
+import io.liuzhilin.mobileanywhere.ShareVideoActivityNew;
 import io.liuzhilin.mobileanywhere.ShareVoiceActivity;
 import io.liuzhilin.mobileanywhere.callback.GetBlogCallBack;
 import io.liuzhilin.mobileanywhere.callback.GetPointCallBack;
@@ -115,7 +116,14 @@ public class ShareMenuFragment extends BottomSheetDialogFragment implements View
                 break;
             }
             case R.id.share_video:{
-                Intent intent = new Intent(getContext(), ShareVideoActivity.class);
+                Intent intent = new Intent(getContext(), ShareVideoActivityNew.class);
+                if (isBlog){
+                    intent.putExtra("pointId",getPointCallBack.getPointData());
+                    intent.putExtra("url", RequestCenter.SEND_BLOG);
+                }else {
+                    intent.putExtra("blogId",getBlogCallBack.getBlogData().getBlogId());
+                    intent.putExtra("url",RequestCenter.ADD_COMMENT);
+                }
                 startActivity(intent);
                 break;
             }

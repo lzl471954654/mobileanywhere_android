@@ -1,6 +1,7 @@
 package io.liuzhilin.mobileanywhere.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 import io.liuzhilin.mobileanywhere.R
+import io.liuzhilin.mobileanywhere.VideoPlayerActivity
 import io.liuzhilin.mobileanywhere.bean.Blog
 import io.liuzhilin.mobileanywhere.callback.OnBlogClickListener
 import io.liuzhilin.mobileanywhere.manager.UserCacheManager
@@ -20,6 +22,7 @@ import kotlinx.android.synthetic.main.view_comments.view.people_name
 import kotlinx.android.synthetic.main.view_image_comments.view.*
 import kotlinx.android.synthetic.main.view_text_comments.view.*
 import kotlinx.android.synthetic.main.view_text_image_comments.view.*
+import kotlinx.android.synthetic.main.view_video_comments.view.*
 
 class PYQAdapter(val context : Context,var dataList : List<Blog>,val blogClickListener: OnBlogClickListener) : RecyclerView.Adapter<PYQAdapter.PYQCommentsViewHolder>() {
 
@@ -40,6 +43,14 @@ class PYQAdapter(val context : Context,var dataList : List<Blog>,val blogClickLi
             TEXT_IMAGE_BLOG->{
                 val view = LayoutInflater.from(context).inflate(R.layout.view_text_image_comments,p0,false)
                 PYQTextImageCommentsViewHolder(view)
+            }
+            VIDEO_BLOG->{
+                val view = LayoutInflater.from(context).inflate(R.layout.view_video_comments,p0,false)
+                PYQVideoCommentsViewHolder(view)
+            }
+            VOICE_BLOG->{
+                val view = LayoutInflater.from(context).inflate(R.layout.view_video_comments,p0,false)
+                PYQVoiceCommentsViewHolder(view)
             }
             else->{
                 val view = LayoutInflater.from(context).inflate(R.layout.view_comments,p0,false)
@@ -94,6 +105,31 @@ class PYQAdapter(val context : Context,var dataList : List<Blog>,val blogClickLi
             Glide.with(context)
                     .load(dataList[position].blogMediaUrl)
                     .into(rootView.comments_image_data)
+        }
+    }
+
+    inner class PYQVideoCommentsViewHolder(private val rootView: View) : PYQCommentsViewHolder(rootView){
+
+        override fun onBind(position: Int) {
+            super.onBind(position)
+            rootView.comments_video_data.setOnClickListener {
+                val intent = Intent(context,VideoPlayerActivity::class.java)
+                intent.putExtra("url",dataList[position].blogMediaUrl)
+                context.startActivity(intent)
+            }
+        }
+    }
+
+    inner class PYQVoiceCommentsViewHolder(private val rootView: View) : PYQCommentsViewHolder(rootView){
+
+        override fun onBind(position: Int) {
+            super.onBind(position)
+            rootView.comments_video_data.setImageResource(R.mipmap.voice_icon)
+            rootView.comments_video_data.setOnClickListener {
+                val intent = Intent(context,VideoPlayerActivity::class.java)
+                intent.putExtra("url",dataList[position].blogMediaUrl)
+                context.startActivity(intent)
+            }
         }
     }
 

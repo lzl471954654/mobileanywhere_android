@@ -28,8 +28,8 @@
         android:layout_height="wrap_content"
         android:text="@string/submit_button"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/textPrimary"
+        android:background="@drawable/button_corner"
+        android:textColor="#ffffff"
         android:id="@+id/feedback_ac_submit"
         />
     </LinearLayout>

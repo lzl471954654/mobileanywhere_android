@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ShareVoiceActivity">
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="录制视频"
+        android:background="@drawable/button_corner"
+        android:textColor="#ffffff"
+        android:layout_marginTop="32dp"
+        />
+
+    <Button
+        android:id="@+id/btn_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="播放录音"
+        android:background="@drawable/button_corner"
+        android:textColor="#ffffff"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/tv_show"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="开始上传"
+        android:background="@drawable/button_corner"
+        android:textColor="#ffffff"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="视频大小：0"
+        android:id="@+id/video_size_text"
+        />
+
+
+
+</LinearLayout>

@@ -35,8 +35,8 @@
             android:layout_height="wrap_content"
             android:text="@string/pick_image_from_gallery"
             android:layout_marginTop="16dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/textPrimary"
+            android:background="@drawable/button_corner"
+            android:textColor="#ffffff"
             android:id="@+id/pick_image"
             />
 
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:text="@string/shot_image"
             android:layout_marginTop="16dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/textPrimary"
+            android:background="@drawable/button_corner"
+            android:textColor="#ffffff"
             android:id="@+id/shot_image"
             />
 
@@ -55,8 +55,8 @@
         android:layout_height="wrap_content"
         android:text="@string/submit_button"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/textPrimary"
+        android:background="@drawable/button_corner"
+        android:textColor="#ffffff"
         android:id="@+id/feedback_ac_submit"
         />
     </LinearLayout>
